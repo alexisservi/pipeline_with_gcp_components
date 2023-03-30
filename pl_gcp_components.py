@@ -83,7 +83,7 @@ def gcp_components_pipeline(
     ).after(custom_job_task)
 
     # Upload model if it was created
-    with dsl.Condition(str(import_unmanaged_model_task.outputs["artifact"]) != None):
+    with dsl.Condition(str(import_unmanaged_model_task.outputs["artifact"]) != ""):
         # Upload to Vertex
         model_upload_op = ModelUploadOp(
             project=project,
