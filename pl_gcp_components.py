@@ -10,7 +10,7 @@ from kfp.v2.dsl import (
     Output,
     Dataset,
     Metrics,
-    InputPath, OutputPath, )
+    InputPath, OutputPath, importer)
 from google_cloud_pipeline_components.v1.custom_job import create_custom_training_job_from_component
 from typing import NamedTuple
 
@@ -19,6 +19,7 @@ from google_cloud_pipeline_components.v1.custom_job import CustomTrainingJobOp
 from google_cloud_pipeline_components.v1.endpoint import EndpointCreateOp, ModelDeployOp
 from google_cloud_pipeline_components.v1.model import ModelUploadOp
 from kfp.v2.components import importer_node
+
 
 import google.cloud.aiplatform as aip
 
@@ -70,7 +71,8 @@ def gcp_components_pipeline(
         ],
     )
 
-    import_unmanaged_model_task = importer_node.importer(
+    #import_unmanaged_model_task = importer_node.importer(
+    import_unmanaged_model_task = importer(
         artifact_uri=WORKING_DIR,
         artifact_class=artifact_types.UnmanagedContainerModel,
         metadata={
