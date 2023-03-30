@@ -18,7 +18,7 @@ from google_cloud_pipeline_components.types import artifact_types
 from google_cloud_pipeline_components.v1.custom_job import CustomTrainingJobOp
 from google_cloud_pipeline_components.v1.endpoint import EndpointCreateOp, ModelDeployOp
 from google_cloud_pipeline_components.v1.model import ModelUploadOp
-from kfp.v2.components import importer_node
+#from kfp.v2.components import importer_node
 
 
 import google.cloud.aiplatform as aip
