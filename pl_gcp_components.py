@@ -43,7 +43,7 @@ print(TRAINER_ARGS, WORKING_DIR, MODEL_DISPLAY_NAME)
 aip.init(project=PROJECT_ID, staging_bucket=BUCKET_URI)
 
 #---------------------------------------------------------------------------------------------------
-@dsl.pipeline(name='custom-components-v1', description='A pipeline with custom components')
+@dsl.pipeline(name='gcp_components_pipeline-v1', description='A pipeline with GCP standard components')
 def gcp_components_pipeline(
     project: str = PROJECT_ID,
     model_display_name: str = MODEL_DISPLAY_NAME,
