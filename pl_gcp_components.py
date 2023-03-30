@@ -90,7 +90,7 @@ def gcp_components_pipeline(
         )
         model_upload_op.after(import_unmanaged_model_task)
 
-        # Create endpoint
+        # Create endpoint 
         endpoint_create_op = EndpointCreateOp(
             project=project,
             display_name="pipelines-created-endpoint",
