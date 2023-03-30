@@ -83,30 +83,30 @@ def gcp_components_pipeline(
     ).after(custom_job_task)
 
     # Upload model if it was created
-    with dsl.Condition(import_unmanaged_model_task.outputs["artifact"]):
-        # Upload to Vertex
-        model_upload_op = ModelUploadOp(
-            project=project,
-            display_name=model_display_name,
-            unmanaged_container_model=import_unmanaged_model_task.outputs["artifact"],
-        )
-        model_upload_op.after(import_unmanaged_model_task)
+    #with dsl.Condition(import_unmanaged_model_task.outputs["artifact"]):
+    # Upload to Vertex
+    model_upload_op = ModelUploadOp(
+        project=project,
+        display_name=model_display_name,
+        unmanaged_container_model=import_unmanaged_model_task.outputs["artifact"],
+    )
+    model_upload_op.after(import_unmanaged_model_task)
 
-        # Create endpoint 
-        endpoint_create_op = EndpointCreateOp(
-            project=project,
-            display_name="pipelines-created-endpoint",
-        )
+    # Create endpoint 
+    endpoint_create_op = EndpointCreateOp(
+        project=project,
+        display_name="pipelines-created-endpoint",
+    )
 
-        # Deploy model to endpoint
-        ModelDeployOp(
-            endpoint=endpoint_create_op.outputs["endpoint"],
-            model=model_upload_op.outputs["model"],
-            deployed_model_display_name=model_display_name,
-            dedicated_resources_machine_type="n1-standard-4",
-            dedicated_resources_min_replica_count=1,
-            dedicated_resources_max_replica_count=1,
-        )
+    # Deploy model to endpoint
+    ModelDeployOp(
+        endpoint=endpoint_create_op.outputs["endpoint"],
+        model=model_upload_op.outputs["model"],
+        deployed_model_display_name=model_display_name,
+        dedicated_resources_machine_type="n1-standard-4",
+        dedicated_resources_min_replica_count=1,
+        dedicated_resources_max_replica_count=1,
+    )
     
 #------------------------------------------
 # Compile pipeline
